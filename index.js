@@ -17,7 +17,9 @@ var STANDARD_FACET_SCORE = 900;
  */
 module.exports = function mimeScore(type, source) {
   var pri = 0;
-  var [type, subtype] = type.split('/');
+  var parts = type.split('/');
+  type = parts[0];
+  var subtype = parts[1];
   var facet = /^([a-z]+\.|x-)/.test(subtype) && RegExp.$1 || undefined;
 
   // https://tools.ietf.org/html/rfc6838#section-3 defines "facets" that can be
