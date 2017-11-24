@@ -7,8 +7,7 @@
   "engines": {
     "node": ">=4"
   },
-  "contributors": [
-  ],
+  "contributors": [],
   "description": "Logic for prioritizing MIME types",
   "license": "MIT",
   "dependencies": {},
@@ -27,5 +26,5 @@
     "url": "https://github.com/broofa/mime-score",
     "type": "git"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
