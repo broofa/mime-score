@@ -4,7 +4,7 @@ var STANDARD_FACET_SCORE = 900;
  * Get a mimetype "score" that can be used to resolve extension conflicts in a
  * deterministic way.
  *
- * @param type (String) The mime type. E.g. "image/bmp"
+ * @param mimeType (String) The mime type. E.g. "image/bmp"
  * @param source (String) Optinoal source of the mime type. May be one of "iana",
  *                        "apache", "nginx", or undefined
  *
@@ -15,10 +15,10 @@ var STANDARD_FACET_SCORE = 900;
  *  1's digit  : determined by general type. E.g. 'application' vs 'text'
  *  fraction   : inverse string length (shorter = larger value)
  */
-module.exports = function mimeScore(type, source) {
+module.exports = function mimeScore(mimeType, source) {
   var pri = 0;
-  var parts = type.split('/');
-  type = parts[0];
+  var parts = mimeType.split('/');
+  var type = parts[0];
   var subtype = parts[1];
   var facet = /^([a-z]+\.|x-)/.test(subtype) && RegExp.$1 || undefined;
 
@@ -50,7 +50,7 @@ module.exports = function mimeScore(type, source) {
   }
 
   // All other things being equal, use length
-  pri += 1 - type.length/100;
+  pri += 1 - mimeType.length/100;
 
   return pri;
 };

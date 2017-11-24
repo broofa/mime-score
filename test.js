@@ -24,6 +24,6 @@ describe('mime-score', function() {
   });
 
   it('Length priority', function() {
-    assert(mimeScore('text/wat') > mimeScore('image/wat'))
+    assert(mimeScore('text/wat') > mimeScore('text/water'))
   });
 });
