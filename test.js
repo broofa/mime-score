@@ -3,12 +3,14 @@
 var assert = require('assert');
 var mimeScore = require('.');
 
-const TYPES = {
-  'application/x-tar': 0,
-  'application/x-tar': 0,
-};
-
 describe('mime-score', function() {
+  it('Scores', function() {
+    assert.equal(mimeScore('image/bmp', 'iana'), 940.91)
+    assert.equal(mimeScore('application/x-foo'), 231.83)
+    assert.equal(mimeScore('font/x.foo', 'apache'), 322.90)
+    assert.equal(mimeScore('text/vnd.foo', 'nginx'), 410.88)
+    assert.equal(mimeScore('text/prs.foo', 'nginx'), 110.88)
+  });
   it('Facet priority', function() {
     assert(mimeScore('image/bmp') > mimeScore('image/x-ms-bmp'))
   });
