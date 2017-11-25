@@ -1,5 +1,10 @@
 var STANDARD_FACET_SCORE = 900;
 
+var TYPE_SCORES = {
+  font: 2,
+  application: 1,
+}
+
 /**
  * Get a mimetype "score" that can be used to resolve extension conflicts in a
  * deterministic way.
@@ -42,12 +47,12 @@ module.exports = function mimeScore(mimeType, source) {
     default: pri += 30; break;
   }
 
-  // Prefer application over other types (e.g. text/xml and application/xml, and
-  // text/rtf and application/rtf all appear to be respectable mime thingz.)
-  switch (type) {
-    case 'application': pri += 1; break;
-    default: break;
-  }
+  // Prefer certain types. Specifically, this addresses these cases we've run
+  // into:
+  // - application/xml over text/xml
+  // - application/rtf over text/rtf
+  // - font/woff over application/font-woff
+  pri += TYPE_SCORES[type] || 0;
 
   // All other things being equal, use length
   pri += 1 - mimeType.length/100;
