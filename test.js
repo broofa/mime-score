@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var mimeScore = require('.');
+var mimeScore = require('./index.js');
 
 describe('mime-score', function() {
   it('Scores', function() {
