@@ -7,6 +7,7 @@
     "email": "robert@broofa.com"
   },
   "type": "module",
+  "types": "./dist/mimeScore.d.ts",
   "exports": {
     "import": "./dist/mimeScore.js"
   },
