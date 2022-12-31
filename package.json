@@ -7,8 +7,11 @@
     "email": "robert@broofa.com"
   },
   "type": "module",
+  "exports": {
+    "import": "./dist/mimeScore.js"
+  },
   "bin": {
-    "mimescore": "./bin/mimescore"
+    "mimescore": "./dist/cli"
   },
   "files": [
     "dist"
