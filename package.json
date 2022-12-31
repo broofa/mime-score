@@ -10,9 +10,7 @@
   "exports": {
     "import": "./dist/mimeScore.js"
   },
-  "bin": {
-    "mimescore": "./dist/cli"
-  },
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
