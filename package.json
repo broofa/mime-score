@@ -1,33 +1,43 @@
 {
+  "name": "mime-score",
+  "version": "1.2.0",
   "author": {
     "name": "Robert Kieffer",
     "url": "http://github.com/broofa",
     "email": "robert@broofa.com"
   },
+  "type": "module",
   "bin": {
     "mimescore": "./bin/mimescore"
   },
-  "engines": {
-    "node": ">=0.6"
-  },
-  "contributors": [],
+  "files": [
+    "dist"
+  ],
   "description": "Logic for prioritizing MIME types",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
-    "mocha": "7.1.2"
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.11.18",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4"
   },
   "scripts": {
-    "test": "mocha test.js"
+    "build": "tsc --inlineSourceMap && chmod a+x dist/cli.js",
+    "build:watch": "tsc --watch",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write .",
+    "prepare": "npm run lint && tsc && chmod a+x dist/cli.js",
+    "test": "mocha ./dist/test.js"
   },
   "keywords": [
-    "",
     "mime"
   ],
-  "name": "mime-score",
   "repository": {
     "url": "https://github.com/broofa/mime-score",
     "type": "git"
   },
-  "version": "1.2.0"
+  "funding": [
+    "https://github.com/sponsors/broofa"
+  ]
 }
