@@ -36,7 +36,12 @@ export default function (
   mimeType: string,
   source: keyof typeof SOURCE_SCORES = 'default'
 ) {
+  if (typeof mimeType !== 'string') {
+    throw new TypeError(`mimeType (${mimeType}) must be a string`);
+  }
+
   if (!MIME_RE.test(mimeType)) return 0;
+
   const type = RegExp.$1 ?? '';
   const subtype = RegExp.$2 ?? '';
   const facet = (/^([a-z]+\.|x-)/.test(subtype) && RegExp.$1) || '';
