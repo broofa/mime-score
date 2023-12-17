@@ -23,6 +23,9 @@ it('Source priority', function () {
 it('General type priority', function () {
   assert.equal(mimeScore('application/xml'), 931.85);
   assert.equal(mimeScore('text/xml'), 930.92);
+
+  assert.equal(mimeScore('application/mp4'), 931.85);
+  assert.equal(mimeScore('video/mp4'), 933.91);
 });
 
 it('Length priority', function () {
