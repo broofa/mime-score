@@ -24,6 +24,8 @@ const TYPE_SCORES: Record<string, number> = {
 
   // prefer font/woff over application/font-woff
   font: 2,
+  audio: 2,
+  video: 3, // Prefer video over audio?
 
   default: 0,
 };

@@ -20,6 +20,8 @@ const TYPE_SCORES = {
     application: 1,
     // prefer font/woff over application/font-woff
     font: 2,
+    audio: 2,
+    video: 3,
     default: 0,
 };
 /**
@@ -27,6 +29,9 @@ const TYPE_SCORES = {
  * total score.  The higher the score, the more "official" the type.
  */
 export default function (mimeType, source = 'default') {
+    if (typeof mimeType !== 'string') {
+        throw new TypeError(`mimeType (${mimeType}) must be a string`);
+    }
     if (!MIME_RE.test(mimeType))
         return 0;
     const type = RegExp.$1 ?? '';
