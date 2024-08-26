@@ -1,34 +1,37 @@
 import assert from 'assert';
+import { it } from 'node:test';
 import mimeScore from './mimeScore.js';
 
-it('Misc. scores', function () {
-  assert.equal(mimeScore('image/bmp', 'iana'), 940.91);
-  assert.equal(mimeScore('application/x-foo'), 231.83);
-  assert.equal(mimeScore('font/x.foo', 'apache'), 322.9);
-  assert.equal(mimeScore('text/vnd.foo', 'nginx'), 410.88);
-  assert.equal(mimeScore('text/prs.foo', 'nginx'), 110.88);
-});
+const SCORES: [string[], number][] = [
+  // Source scores
+  [['image/bmp', 'iana'], 940.91],
+  [['image/bmp'], 930.91],
+  [['image/bmp', 'apache'], 920.91],
+  [['image/bmp', 'nginx'], 910.91],
 
-it('Facet priority', function () {
-  assert(mimeScore('image/bmp') > mimeScore('image/x-ms-bmp'));
-});
+  // Facet score (should be < image/bmp score)
+  [['image/x-ms-bmp'], 230.86],
 
-it('Source priority', function () {
-  assert.equal(mimeScore('image/bmp', 'iana'), 940.91);
-  assert.equal(mimeScore('image/bmp'), 930.91);
-  assert.equal(mimeScore('image/bmp', 'apache'), 920.91);
-  assert.equal(mimeScore('image/bmp', 'nginx'), 910.91);
-});
+  // Misc. scores and sources
+  [['application/javascript'], 931.78],
+  [['application/mp4'], 931.85],
+  [['application/x-foo'], 231.83],
+  [['application/xml'], 931.85],
+  [['font/x.foo', 'apache'], 322.9],
+  [['image/bmp', 'iana'], 940.91],
+  [['text/javascript'], 930.85],
+  [['text/prs.foo', 'nginx'], 110.88],
+  [['text/vnd.foo', 'nginx'], 410.88],
+  [['text/xml'], 930.92],
+  [['video/mp4'], 933.91],
 
-it('General type priority', function () {
-  assert.equal(mimeScore('application/xml'), 931.85);
-  assert.equal(mimeScore('text/xml'), 930.92);
+  // Scores based on string length
+  [['text/wat'], 930.92],
+  [['text/water'], 930.9],
+];
 
-  assert.equal(mimeScore('application/mp4'), 931.85);
-  assert.equal(mimeScore('video/mp4'), 933.91);
-});
-
-it('Length priority', function () {
-  assert.equal(mimeScore('text/wat'), 930.92);
-  assert.equal(mimeScore('text/water'), 930.9);
+it('Scores', function () {
+  for (const [args, expected] of SCORES) {
+    assert.equal(mimeScore(args[0], args[1]), expected, args.join(', '));
+  }
 });
