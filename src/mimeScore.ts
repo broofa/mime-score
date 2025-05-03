@@ -24,8 +24,11 @@ const TYPE_SCORES: Record<string, number> = {
 
   // prefer font/woff over application/font-woff
   font: 2,
+
+  // prefer video/mp4 over audio/mp4 over over application/mp4
+  // See https://www.rfc-editor.org/rfc/rfc4337.html#section-2
   audio: 2,
-  video: 3, // Prefer video over audio?
+  video: 3,
 
   default: 0,
 };
@@ -44,9 +47,11 @@ export default function (
 
   if (!MIME_RE.test(mimeType)) return 0;
 
-  const type = RegExp.$1 ?? '';
-  const subtype = RegExp.$2 ?? '';
-  const facet = (/^([a-z]+\.|x-)/.test(subtype) && RegExp.$1) || '';
+  const match = mimeType.match(MIME_RE);
+  if (!match) return 0;
+  const [, type, subtype] = match;
+
+  const facet = subtype.match(/^[a-z]+\.|x-/)?.[0] || '';
 
   const facetScore = FACET_SCORES[facet] ?? FACET_SCORES.default;
   const sourceScore = SOURCE_SCORES[source] ?? SOURCE_SCORES.default;

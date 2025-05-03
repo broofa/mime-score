@@ -30,11 +30,6 @@ const SCORES: [string[], number][] = [
   [['text/water'], 930.9],
 ];
 
-const CHECKS = [
-  ['image/bmp', 'image/x-ms-bmp'],
-  ['application/javascript', 'text/javascript'],
-];
-
 it('Scores', function () {
   for (const [args, expected] of SCORES) {
     assert.equal(mimeScore(args[0], args[1]), expected, args.join(', '));
@@ -42,7 +37,14 @@ it('Scores', function () {
 });
 
 it('Checks', function () {
-  for (const [a, b] of CHECKS) {
-    assert(mimeScore(a) > mimeScore(b), `${a} > ${b}`);
-  }
+  assert(
+    mimeScore('image/bmp') > mimeScore('image/x-ms-bmp'),
+    'experimental score must be lower than official'
+  );
+
+  assert(
+    mimeScore('text/javascript', 'iana') >
+      mimeScore('application/javascript', 'apache'),
+    'iana score must be higher than apache (JS type!)'
+  );
 });
